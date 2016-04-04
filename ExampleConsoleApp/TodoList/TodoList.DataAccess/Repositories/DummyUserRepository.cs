@@ -23,8 +23,7 @@ namespace TodoList.DataAccess.Repositories
 
         public User GetUser(int id)
         {
-            var index = id - 1;
-            return users[index];
+            return users[id];
         }
 
         public void Save()

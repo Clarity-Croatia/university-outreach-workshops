@@ -31,7 +31,7 @@ namespace TodoList.Entities
                     DateStarted = DateTime.UtcNow;
                     break;
                 case Status.Started:
-                    Status = Status.Finished;
+                    Status = Status.Done;
                     DateFinished = DateTime.UtcNow;
                     break;
                 default:
