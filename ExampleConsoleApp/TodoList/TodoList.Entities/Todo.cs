@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Entity;
 
 namespace TodoList.Entities
 {
@@ -15,10 +14,16 @@ namespace TodoList.Entities
         public DateTime? DateStarted { get; private set; }
         public DateTime? DateFinished { get; private set; }
 
+        // EntityFramework requires a parameterless ctor
+        private Todo()
+        {
+
+        }
+
         public Todo(string message)
         {
             Message = message;
-            DateCreated = DateTime.Now;
+            DateCreated = DateTime.UtcNow;
             Status = Status.Created;
         }
 

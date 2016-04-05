@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using TodoList.Entities;
+using TodoList.Entities.Repositories;
 
-namespace TodoList.DataAccess.Repositories
-{
-    public class DummyUserRepository : IUserRepository
+namespace TodoList
+{ 
+    public class InMemoryUserRepository : IUserRepository
     {
         private List<User> users = new List<User>();
 
         public void AddUser(User user)
         {
+            // ugly reflection to create a fake id which is private
+            user.GetType()
+                .GetProperty("Id")
+                .SetValue(user, users.Count);
+
             users.Add(user);
         }
 

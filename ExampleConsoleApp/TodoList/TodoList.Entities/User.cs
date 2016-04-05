@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TodoList.Entities
 {
@@ -14,6 +9,12 @@ namespace TodoList.Entities
         public string LastName { get; private set; }
 
         public virtual IList<Todo> Todos { get; set; }
+
+        // EntityFramework requires a parameterless ctor
+        private User()
+        {
+
+        }
 
         public User(string firstName, string lastName)
         {

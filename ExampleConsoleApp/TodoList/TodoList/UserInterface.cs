@@ -1,42 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TodoList.Entities;
+using TodoList.Entities.Repositories;
 
 namespace TodoList
 {
     public class UserInterface
     {
         private IUserRepository _userRepository;
-        private int? _selectedUserIndex = null;
+        private User _selectedUser = null;
+        private IEnumerable<User> users;
 
         public UserInterface(IUserRepository ur)
         {
             _userRepository = ur;
+            users = _userRepository.GetUsers();
         }
 
         public void Draw()
         {
             Console.Clear();
 
-            Console.WriteLine("Users:");
-            Console.WriteLine();
+            ListUsers();
 
-            var i = 0;
-            foreach(var u in _userRepository.GetUsers())
-            {
-                Console.WriteLine($"{i}\t{u.FirstName} {u.LastName}");
-                if(_selectedUserIndex.HasValue && i == _selectedUserIndex.Value)
-                {
-                    ShowTodos(u);
-                }
-
-                i++; 
-            }
-
-            if (_selectedUserIndex.HasValue)
+            if (_selectedUser != null)
             {
                 AddOrUpdateTodo();
             }
@@ -44,85 +31,140 @@ namespace TodoList
             {
                 AddOrSelectUser();
             }
+
+            _userRepository.Save();
+        }
+
+        private void ListUsers()
+        {
+            WriteRow("Id","First Name","Last Name");
+            foreach (var u in users)
+            {
+                WriteRow(u.Id, u.FirstName, u.LastName);
+                if (_selectedUser != null && _selectedUser.Id == u.Id)
+                {
+                    ShowTodos();
+                }
+            }
         }
 
         private void AddOrUpdateTodo()
         {
-            var user = _userRepository.GetUser(_selectedUserIndex.Value);            
-
             Console.WriteLine();
-            Console.WriteLine("Add (a) todo or update state (id):");
-            var viewOrAdd = Console.ReadKey();
+            Console.Write("Add (a) todo or update state (index): ");
+            var key = Console.ReadKey();
 
-            if (viewOrAdd.Key == ConsoleKey.Escape)
+            switch (key.Key)
             {
-                _selectedUserIndex = null;
-                return;
-            }
-            else if (viewOrAdd.KeyChar == 'a')
-            {
-                AddTodo(user);
-            }
-            else
-            {
-                var todoIndex = int.Parse(viewOrAdd.KeyChar.ToString());
-                user.Todos[todoIndex].UpdateStatus();
+                case ConsoleKey.Escape:
+                    HideTodos();
+                    break;
+                case ConsoleKey.A:
+                    AddTodo();
+                    break;
+                default:
+                    try
+                    {
+                        var todoIndex = int.Parse(key.KeyChar.ToString());
+                        _selectedUser.Todos[todoIndex].UpdateStatus();
+                    }
+                    catch
+                    {
+                        throw new Exception("Entered todo index was not a valid number");
+                    }
+                    
+                    break;
             }
         }
            
-        private static void AddTodo(User user)
+        private void AddTodo()
         {
             Console.WriteLine();
-            Console.WriteLine("Add Todo message:");
+            Console.Write("Add Todo message: ");
             var message = Console.ReadLine();
 
-            user.Todos.Add(new Todo(message));
+            _selectedUser.Todos.Add(new Todo(message));
         }
 
         private void AddUser()
         {
             Console.WriteLine();
-            Console.WriteLine("Enter firsname and lastname:");
-            var fnameLname = Console.ReadLine();
+            Console.Write("First name: ");
+            var fname = Console.ReadLine();
+            Console.Write("Last name: ");
+            var lname = Console.ReadLine();
 
-            var name = fnameLname.Split(' ');
-            var user = new User(name[0], name[1]);
-
+            var user = new User(fname, lname);
             _userRepository.AddUser(user);
         }
 
         private void AddOrSelectUser()
         {
             Console.WriteLine();
-            Console.WriteLine("Add user (a) or select user (id):");
-            var viewOrAdd = Console.ReadKey();
+            Console.Write("Add user (a) or select user (id): ");
+            var key = Console.ReadKey();
 
-            if (viewOrAdd.Key == ConsoleKey.Escape)
+
+            switch (key.Key)
             {
-                _selectedUserIndex = null;
-            }
-            else if (viewOrAdd.KeyChar == 'a')
-            {
-                AddUser();
-            }
-            else
-            {
-                var userIndex = int.Parse(viewOrAdd.KeyChar.ToString());
-                _selectedUserIndex = userIndex;
+                case ConsoleKey.A:
+                    AddUser();
+                    break;
+                default:
+                    try
+                    {
+                        var selectedId = int.Parse(key.KeyChar.ToString());
+                        _selectedUser = _userRepository.GetUser(selectedId);
+
+                        if(_selectedUser == null)
+                        {
+                            throw new Exception();
+                        }
+                    }
+                    catch
+                    {
+                        throw new Exception("Entered user id was not a valid number");
+                    }
+
+                    break;
             }
         }
 
-        private void ShowTodos(User user)
+        private void ShowTodos()
         {
-            var i = 0;
+            var todoIndex = 0;
 
-            Console.WriteLine("\tIndex\tMessage\t\tStatus\t\tCreated\t\t\tStarted\t\t\tFinished");
-            foreach (var t in user.Todos)
+            Console.Write("\t");
+            WriteRow("Index", "Message", "Status", "Created", "Started", "Finished");
+            foreach (var t in _selectedUser.Todos)
             {
-                Console.WriteLine($"\t{i}\t{t.Message}\t{t.DisplayStatus}\t\t{t.DateCreated}\t{t.DateStarted}\t{t.DateFinished}");
-                i++;
+                Console.Write("\t");
+                WriteRow(todoIndex, t.Message, t.DisplayStatus, t.DateCreated, t.DateStarted, t.DateFinished);
+                todoIndex++;
             }
             Console.WriteLine();
+        }        
+
+        private void HideTodos()
+        {
+            _selectedUser = null;
+        }
+
+        private void WriteRow(params object[] columns)
+        {
+            var colLength = 10;
+            var returnStr = "";
+            foreach (var obj in columns)
+            {
+                var str = (obj ?? "").ToString();
+                if (str.Length > colLength)
+                {
+                    str = str.Substring(0, colLength - 3) + "...";
+                }
+
+                returnStr += str.PadRight(colLength + 2, ' ');
+            }
+            Console.WriteLine(returnStr);
         }
     }
 }
