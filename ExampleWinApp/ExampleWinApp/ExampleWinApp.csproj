@@ -94,12 +94,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\ExampleConsoleApp\TodoList\TodoList.Entities\TodoList.Entities.csproj">
-      <Project>{d07f9699-2c17-40bc-851f-0b2146d2684b}</Project>
-      <Name>TodoList.Entities</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -12,7 +12,7 @@ namespace ExampleWinApp.Storage
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Todo> Todos { get; set; }
-
+        
         public ToDoListDBContext()
             : base("TodoContext")
         {
