@@ -35,12 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\TodoList.DataAccess\bin\Debug\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\TodoList.DataAccess\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -60,34 +54,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="TodoViewModel.cs" />
-    <Compile Include="UserViewModel.cs" />
-    <Page Include="AddEditTodo.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="AddUser.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AddEditTodo.xaml.cs">
-      <DependentUpon>AddEditTodo.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="AddEditTodoViewModel.cs" />
-    <Compile Include="AddUser.xaml.cs">
-      <DependentUpon>AddUser.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="AddUserViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Globals.cs" />
-    <Compile Include="MainViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -119,20 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ExampleWinApp.Base\ExampleWinApp.Base.csproj">
-      <Project>{ea5763ca-2bc6-4d55-b57b-9c6834e95d4e}</Project>
-      <Name>ExampleWinApp.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TodoList.DataAccess\TodoList.DataAccess.csproj">
-      <Project>{dfbbc685-549e-453f-8c6e-8ca02658232a}</Project>
-      <Name>TodoList.DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TodoList.Entities\TodoList.Entities.csproj">
-      <Project>{d07f9699-2c17-40bc-851f-0b2146d2684b}</Project>
-      <Name>TodoList.Entities</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

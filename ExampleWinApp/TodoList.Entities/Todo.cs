@@ -5,7 +5,7 @@ namespace TodoList.Entities
     public class Todo
     {
         public int Id { get; private set; }
-        public string Message { get; set; }
+        public string Message { get; private set; }
 
         private Status Status { get; set; }
         public string DisplayStatus { get { return Status.ToString(); } }
