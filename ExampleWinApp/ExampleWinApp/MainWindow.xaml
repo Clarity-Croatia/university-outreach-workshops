@@ -3,6 +3,83 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <!-- ZADATAK 1 -->
+        <ListBox
+            Margin="2"
+            Grid.Column="0"
+            Grid.Row="0"
+            ItemsSource="{Binding Users}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding User.FirstName}"/>
+                        <Label Content="{Binding User.LastName}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button
+            Margin="2"
+            Grid.Column="0"
+            Grid.Row="1"
+            Height="50"
+            Content="Add user"
+            Command="{Binding OpenAddUser}"/>
+
+        <ListBox
+            Margin="2"
+            Grid.Column="1"
+            Grid.Row="0"
+            ItemsSource="{Binding SelectedUser.Todos}"
+            HorizontalContentAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <!-- ZADATAK 4 -->
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <!-- Label will be automatically stretched to fill all dockpanel free space -->
+                        <Label 
+                            Grid.Column="0"
+                            Content="{Binding Message}"/>
+                        <Label 
+                            Grid.Column="1"
+                            Content="{Binding Status}"/>
+                        <!-- ZADATAK 4 -->
+                        <Button
+                            Grid.Column="2"
+                            Content="Edit"
+                            Padding="20 0 20 0"
+                            Command="{Binding DataContext.OpenEditTodo, RelativeSource={RelativeSource AncestorType=Window}}"
+                            CommandParameter="{Binding}"/>
+                        <Button
+                            Grid.Column="3"
+                            Content="Update"
+                            Padding="20 0 20 0"
+                            Command="{Binding UpdateTodo}"/>
+
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button
+            Margin="2"
+            Grid.Column="1"
+            Grid.Row="1"
+            Height="50"
+            Content="Add todo"
+            Command="{Binding OpenAddTodo}"/>
     </Grid>
 </Window>

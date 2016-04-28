@@ -13,6 +13,13 @@ namespace ExampleWinApp
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            var v = new MainWindow();
+            var vm = new MainViewModel();
 
+            v.DataContext = vm;
+            v.Show();
+        }
     }
 }
