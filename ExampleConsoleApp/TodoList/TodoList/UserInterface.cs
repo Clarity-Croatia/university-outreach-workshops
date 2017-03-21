@@ -134,14 +134,16 @@ namespace TodoList
         {
             var todoIndex = 0;
 
+            Console.WriteLine("TODOS: ------------------");
             Console.Write("\t");
             WriteRow("Index", "Message", "Status", "Created", "Started", "Finished");
             foreach (var t in _selectedUser.Todos)
             {
                 Console.Write("\t");
-                WriteRow(todoIndex, t.Message, t.DisplayStatus, t.DateCreated, t.DateStarted, t.DateFinished);
+                WriteRow(todoIndex, t.Message, t.DisplayStatus, t.DateCreated.ToLongTimeString(), t.DateStarted?.ToLongTimeString(), t.DateFinished?.ToLongTimeString());
                 todoIndex++;
             }
+            Console.WriteLine("------------------------");
             Console.WriteLine();
         }        
 
