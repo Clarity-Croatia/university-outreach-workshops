@@ -1,0 +1,49 @@
+﻿@model TodoList.Entities.User
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+    </dl>
+
+    <table>
+        <tr>
+            <th>Todo Message</th>
+            <th>Todo Status</th>
+        </tr>
+        @foreach (var todoItem in Model.Todos)
+        {
+            <tr>
+                <td>@todoItem.Message</td>
+                <td>@todoItem.DisplayStatus</td>
+            </tr>
+        }
+    </table>
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

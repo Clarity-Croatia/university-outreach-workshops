@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList", "TodoList\TodoList.csproj", "{11E6F737-B802-4DA6-AC83-850BF9931057}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Entities", "TodoList.Entities\TodoList.Entities.csproj", "{D07F9699-2C17-40BC-851F-0B2146D2684B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.DataAccess", "TodoList.DataAccess\TodoList.DataAccess.csproj", "{DFBBC685-549E-453F-8C6E-8CA02658232A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.MVC", "TodoList.MVC\TodoList.MVC.csproj", "{7791FCB9-E967-4EB2-98A6-760A4D4697C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{DFBBC685-549E-453F-8C6E-8CA02658232A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFBBC685-549E-453F-8C6E-8CA02658232A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFBBC685-549E-453F-8C6E-8CA02658232A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7791FCB9-E967-4EB2-98A6-760A4D4697C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7791FCB9-E967-4EB2-98A6-760A4D4697C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7791FCB9-E967-4EB2-98A6-760A4D4697C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7791FCB9-E967-4EB2-98A6-760A4D4697C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

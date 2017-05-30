@@ -13,7 +13,7 @@ namespace TodoList
             IUserRepository repo = new InMemoryUserRepository();
 
             // uncomment this line to replace the in-mem repo with db repo
-            //repo = new UserRepository(new TodoContext());
+            repo = new UserRepository(new TodoContext());
 
             var ui = new UserInterface(repo);
 
